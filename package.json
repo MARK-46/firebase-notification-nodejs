@@ -1,0 +1,19 @@
+{
+  "name": "fcm-ipats",
+  "version": "1.0.0",
+  "description": "FCM. 🦉",
+  "private": true,
+  "keywords": [
+    "fcm",
+    "firebase"
+  ],
+  "homepage": "https://github.com/MARK-46",
+  "author": "MARK-46 <mark.38.98.ii@gmail.com>",
+  "license": "MIT",
+  "main": "main.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase-admin": "^11.8.0",
+    "request": "^2.88.2"
+  }
+}
