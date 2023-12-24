@@ -35,20 +35,24 @@ app.get('/api/notify', async (req, res) => {
                             "analyticsLabel": "Incoming call"
                         },
                         "android": {
+                            "ttl": "1000s",
                             "priority": "high"
                         },
                         "apns": {
                             "payload": {
                                 "aps": {
+                                    "badge": 1,
+                                    "sound": "default",
                                     "priority": "high",
-                                    "timeToLive": 3600,
-                                    "contentAvailable": true,
+                                    "apns-push-type": "background",
+                                    "apns-priority": "10",
                                     "content-available": 1,
-                                    "content_available": 1,
-                                    "mutable-content": true
+                                    "mutable-content": 1
                                 }
                             },
                             "headers": {
+                                "priority": "high",
+                                "apns-push-type": "background",
                                 "apns-priority": "10"
                             },
                         }
