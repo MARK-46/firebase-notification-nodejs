@@ -40,10 +40,12 @@ app.get('/api/notify', async (req, res) => {
                         "apns": {
                             "payload": {
                                 "aps": {
-                                    "priority": 'high',
+                                    "priority": "high",
                                     "timeToLive": 3600,
                                     "contentAvailable": true,
-                                    "mutableContent": true
+                                    "content-available": 1,
+                                    "content_available": 1,
+                                    "mutable-content": true
                                 }
                             }
                         }
