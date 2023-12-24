@@ -29,7 +29,7 @@ app.get('/api/notify', async (req, res) => {
                             "body": req.query.body
                         },
                         "data": {
-
+                            "content-available": "1"
                         },
                         "fcmOptions": {
                             "analyticsLabel": "Incoming call"
@@ -47,7 +47,10 @@ app.get('/api/notify', async (req, res) => {
                                     "content_available": 1,
                                     "mutable-content": true
                                 }
-                            }
+                            },
+                            "headers": {
+                                "apns-priority": "10"
+                            },
                         }
                     }
                 }
