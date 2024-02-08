@@ -2,6 +2,7 @@ const request = require("request");
 const firebase = require("firebase-admin");
 
 const account = require("./service-account.json");
+console.log(account);
 const fcm = firebase.initializeApp({
     credential: firebase.credential.cert(account),
     projectId: account.project_id,
@@ -24,10 +25,10 @@ app.get('/api/notify', async (req, res) => {
                 json: {
                     "message": {
                         "token": req.query.token,
-                        "notification": {
-                            "title": "Incoming call",
-                            "body": req.query.body
-                        },
+                        // "notification": {
+                        //     "title": "Incoming call",
+                        //     "body": req.query.body
+                        // },
                         "data": {
                             "content-available": "1"
                         },
@@ -41,20 +42,14 @@ app.get('/api/notify', async (req, res) => {
                         "apns": {
                             "payload": {
                                 "aps": {
-                                    "badge": 1,
-                                    "sound": "default",
+                                    "badge": 0,
                                     "priority": "high",
-                                    "apns-push-type": "background",
+                                    "apns-push-type": "voip",
                                     "apns-priority": "10",
                                     "content-available": 1,
                                     "mutable-content": 1
                                 }
-                            },
-                            "headers": {
-                                "priority": "high",
-                                "apns-push-type": "background",
-                                "apns-priority": "10"
-                            },
+                            }
                         }
                     }
                 }
