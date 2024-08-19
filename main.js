@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
-const apnSend = require('./ios');
-const fcmSend = require('./android');
+const apnSend = require('./lib/ios');
+const fcmSend = require('./lib/android');
 
 const app = express();
 
@@ -65,7 +65,7 @@ app.get('/api/notify', async (req, res) => {
 
 const port = 1337;
 app.listen(port, '0.0.0.0', () => {
-    console.log(`Server is running on http://localhost:${port}/api/notify?name=MarkPC&phone=445&token=1234`);
+    console.log(`Server is running on http://82.146.49.216:${port}/api/notify?name=MarkPC&phone=445&token=09dd8af913f4d037866412bd81a595e0573154fd94ce8fd2335e0f5cec914d5&status=incoming`);
 });
 
 process.on('warning', e => console.warn(e.stack));
