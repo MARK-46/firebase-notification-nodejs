@@ -1,8 +1,8 @@
-const path = require('path');
 const request = require("request");
 const uuid = require("uuid");
+const firebase = require("firebase-admin");
 
-const account = require("./service-account.json");
+const account = require("./secrets/service-account.json");
 const fcm = firebase.initializeApp({
     credential: firebase.credential.cert(account),
     projectId: account.project_id,
@@ -44,14 +44,14 @@ const send = function (deviceToken, name, phone) {
             request(url, options, function (error, response, body) {
                 const opt = Object.freeze(options);
                 opt.headers.Authorization = opt.headers.Authorization.length;
-                resolve({
-                    url,
-                    options,
-                    response: error ?? response.body,
-                });
+                resolve(error ?? response.body);
             });
         });
     });
 };
+
+// send('ePqT6OMLSzCyIDknBIk8ua:APA91bGXs0Ek4ygPNahtRpjKzzaH5h07-PKaqVLUK8wuYjPUQkVXryqogoN97Yeem4M9xO3ovA_JsIu2BcUn8JWNCBR3gOq-Zu_A8xU39RmnrCVi16kw7cr-hhou_0ueMGUkeQhauwuA', 'Test', '123', 'incoming').then(res => {
+// 	console.log(JSON.stringify(res, null, 4));
+// });
 
 module.exports = send;
