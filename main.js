@@ -15,12 +15,20 @@ app.post('/api/warp/logs', (req, res) => {
     return res.json({result: 'ok'});
 });
 
+function isIOSDeviceToken(token) {
+    if (iosTokenPattern.length === 64) {
+        return true;
+    }
+    const iosTokenPattern = /^[a-f0-9]{64}(\+[a-f0-9]{64})?$/;
+    return iosTokenPattern.test(token);
+}
+
 app.get('/api/notify', async (req, res) => {
     var deviceToken = req.query.token;
     var phone = req.query.phone;
     var name = req.query.name || phone;
     var status = req.query.status || 'incoming';
-    var platform = deviceToken.length === 64 || deviceToken.length === 63 ? 'IOS' : 'Android';
+    var platform = isIOSDeviceToken(deviceToken) ? 'IOS' : 'Android';
     var tag = `[${new Date().toISOString()}] Asterisk, ` + (status == 'incoming' ? `SendIncomingCall` : `SendEndCall`) + `(${platform})`;
 
     if (!phone || phone.length === 0) {
@@ -31,11 +39,6 @@ app.get('/api/notify', async (req, res) => {
     if (!deviceToken || deviceToken.length === 0) {
         console.log('%s - From: %s, To: %s, Result: %s', tag, phone, deviceToken, 'Canceled, Invalid Device Token!');
         return res.json({result: 'Canceled, Invalid Device Token!'});
-    }
-
-    if (status !== 'incoming' && platform === 'Android') {
-        console.log('%s - From: %s, To: %s, Result: %s', tag, phone, deviceToken, 'Canceled, Not Supported For Android!');
-        return res.json({result: 'Canceled, Not Supported For Android!'});
     }
 
     try {
